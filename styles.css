@@ -60,13 +60,10 @@ body {
     opacity: 0;
     transform: translateY(50px);
     animation: fadeInUp 1s ease 0.5s forwards;
-    background: linear-gradient(45deg, #ffffff 0%, #004C54 30%, #552583 60%, #ffffff 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: fadeInUp 1s ease 0.5s forwards, gradientShift 8s ease-in-out infinite;
-    text-shadow: 0 0 30px rgba(0, 76, 84, 0.6);
+    color: #ffffff;
+    text-shadow: 
+        0 0 30px rgba(0, 76, 84, 0.6),
+        0 0 60px rgba(85, 37, 131, 0.3);
 }
 
 .hero p {
