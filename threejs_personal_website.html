@@ -23,24 +23,9 @@
           >Explore My Work</a
         >
       </div>
-      <div
-        class="floating-element floating-1"
-        style="position: absolute; top: 10%; left: 10%"
-      >
-        🛸
-      </div>
-      <div
-        class="floating-element floating-2"
-        style="position: absolute; top: 30%; right: 12%"
-      >
-        🚀
-      </div>
-      <div
-        class="floating-element floating-3"
-        style="position: absolute; bottom: 18%; left: 22%"
-      >
-        👨🏾‍🚀
-      </div>
+      <div class="floating-element floating-1">🛸</div>
+      <div class="floating-element floating-2">🚀</div>
+      <div class="floating-element floating-3">👨🏾‍🚀</div>
     </section>
 
     <section class="section" id="about">
@@ -688,5 +673,33 @@
         });
       });
     </script>
+
+    <style>
+      /* Floating elements positioning */
+      .floating-element.floating-1 {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+      }
+
+      .floating-element.floating-2 {
+        position: absolute;
+        top: 30%;
+        right: 12%;
+      }
+
+      .floating-element.floating-3 {
+        position: absolute;
+        bottom: 18%;
+        left: 22%;
+      }
+
+      /* Hide custom cursor on touch devices */
+      @media (hover: none) and (pointer: coarse) {
+        .custom-cursor {
+          display: none;
+        }
+      }
+    </style>
   </body>
 </html>
