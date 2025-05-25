@@ -1,90 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dom Smith - Creative Developer</title>
+    <meta
+      name="description"
+      content="Dom Smith - Creative Developer portfolio. Explore interactive 3D projects, AI visualizations, and more."
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="custom-cursor"></div>
     <div id="canvas-container"></div>
 
     <section class="section hero">
-        <div>
-            <h1>Dom Smith</h1>
-            <p>Full-Stack Dev & AI Enthusiast</p>
-            <a href="#projects" class="cta-button">Explore My Work</a>
-        </div>
-        <div class="floating-element" style="top: 20%; left: 10%; font-size: 2rem;">🛸</div>
-        <div class="floating-element" style="top: 60%; right: 15%; font-size: 1.5rem;">🚀</div>
-        <div class="floating-element" style="bottom: 20%; left: 20%; font-size: 1.8rem;">👨🏾‍🚀</div>
+      <div>
+        <h1>Dom Smith</h1>
+        <p>Full-Stack Dev & AI Enthusiast</p>
+        <a href="#projects" class="cta-button" aria-label="Explore my work"
+          >Explore My Work</a
+        >
+      </div>
+      <div
+        class="floating-element"
+        style="top: 20%; left: 10%; font-size: 2rem"
+      >
+        🛸
+      </div>
+      <div
+        class="floating-element"
+        style="top: 60%; right: 15%; font-size: 1.5rem"
+      >
+        🚀
+      </div>
+      <div
+        class="floating-element"
+        style="bottom: 20%; left: 20%; font-size: 1.8rem"
+      >
+        👨🏾‍🚀
+      </div>
     </section>
 
     <section class="section" id="about">
-        <div class="about">
-            <div class="about-text">
-                <h2>About Me</h2>
-                <p>I'm a Level 2 Support Analyst at a law firm who's passionate about full-stack development and creating innovative web applications. I enjoy exploring how technology can drive creativity and solve real-world problems.
-                </p>
-                <p>I've built a self-hosted Ollama/Open WebUI LLM stack with Tailscale for secure remote access, developed Discord bots for LLM chat integration and API management, and continuously work on projects that blend technical expertise with creative problem-solving.</p>
-                <div class="skills">
-                    <span class="skill-tag">JS</span>
-                    <span class="skill-tag">React & Tailwind</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Docker</span>
-                </div>
-            </div>
-            <div></div>
+      <div class="about">
+        <div class="about-text">
+          <h2>About Me</h2>
+          <p>
+            I'm a Level 2 Support Analyst at a law firm who's passionate about
+            full-stack development and creating innovative web applications. I
+            enjoy exploring how technology can drive creativity and solve
+            real-world problems.
+          </p>
+          <p>
+            I've built a self-hosted Ollama/Open WebUI LLM stack with Tailscale
+            for secure remote access, developed Discord bots for LLM chat
+            integration and API management, and continuously work on projects
+            that blend technical expertise with creative problem-solving.
+          </p>
+          <div class="skills">
+            <span class="skill-tag">JS</span>
+            <span class="skill-tag">React & Tailwind</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Docker</span>
+          </div>
         </div>
+        <div></div>
+      </div>
     </section>
 
     <section class="section" id="projects">
-        <div class="projects">
-            <h2>Featured Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Cosmic Journey</h3>
-                    <p>An interactive 3D space exploration experience built with Three.js, featuring procedural galaxy generation and physics-based particle systems.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Neural Network Visualizer</h3>
-                    <p>Real-time visualization of machine learning algorithms using WebGL shaders, making complex AI concepts accessible through beautiful animations.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Digital Art Gallery</h3>
-                    <p>A virtual gallery showcasing digital art pieces with immersive lighting effects and smooth camera transitions powered by Three.js.</p>
-                </div>
-            </div>
+      <div class="projects">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <h3>Cosmic Journey</h3>
+            <p>
+              An interactive 3D space exploration experience built with
+              Three.js, featuring procedural galaxy generation and physics-based
+              particle systems.
+            </p>
+          </div>
+          <div class="project-card">
+            <h3>Neural Network Visualizer</h3>
+            <p>
+              Real-time visualization of machine learning algorithms using WebGL
+              shaders, making complex AI concepts accessible through beautiful
+              animations.
+            </p>
+          </div>
+          <div class="project-card">
+            <h3>Digital Art Gallery</h3>
+            <p>
+              A virtual gallery showcasing digital art pieces with immersive
+              lighting effects and smooth camera transitions powered by
+              Three.js.
+            </p>
+          </div>
         </div>
+      </div>
     </section>
 
     <section class="section" id="contact">
-        <div class="contact">
-            <h2>Let's Create Together</h2>
-            <p>Ready to bring your ideas to life? I'm always excited to collaborate on projects that push creative boundaries.</p>
-            <div class="contact-links">
-                <a href="mailto:domsmith343@gmail.com" class="contact-link">Email Me</a>
-                <a href="https://linkedin.com/in/dominicsmith343/" class="contact-link">LinkedIn</a>
-                <a href="https://github.com/domsmith343" class="contact-link">GitHub</a>
-                <a href="https://your-portfolio-url.com" class="contact-link">Portfolio</a>
-            </div>
+      <div class="contact">
+        <h2>Let's Create Together</h2>
+        <p>
+          Ready to bring your ideas to life? I'm always excited to collaborate
+          on projects that push creative boundaries.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:domsmith343@gmail.com" class="contact-link"
+            >Email Me</a
+          >
+          <a
+            href="https://linkedin.com/in/dominicsmith343/"
+            class="contact-link"
+            >LinkedIn</a
+          >
+          <a href="https://github.com/domsmith343" class="contact-link"
+            >GitHub</a
+          >
+          <a href="https://your-portfolio-url.com" class="contact-link"
+            >Portfolio</a
+          >
         </div>
+      </div>
     </section>
 
     <script>
-        // Enhanced Three.js Scene Setup with Nebula Shader Effects
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      // Enhanced Three.js Scene Setup with Nebula Shader Effects
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
 
+      // Responsive renderer and camera for mobile
+      function setRendererAndCameraSize() {
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x000814, 1); // Deep space background
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
+        if (window.innerWidth < 600) {
+          camera.fov = 90;
+        } else {
+          camera.fov = 75;
+        }
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      }
+      setRendererAndCameraSize();
+      renderer.setClearColor(0x000814, 1); // Deep space background
+      document
+        .getElementById("canvas-container")
+        .appendChild(renderer.domElement);
 
-        // Nebula Shader Material
-        const nebulaVertexShader = `
+      // Nebula Shader Material
+      const nebulaVertexShader = `
             varying vec2 vUv;
             varying vec3 vPosition;
             
@@ -95,7 +171,7 @@
             }
         `;
 
-        const nebulaFragmentShader = `
+      const nebulaFragmentShader = `
             uniform float uTime;
             uniform float uIntensity;
             uniform float uSpeed;
@@ -240,326 +316,377 @@
             }
         `;
 
-        // Create nebula system
-        const nebulaGroup = new THREE.Group();
-        const nebulaLayers = [];
+      // Create nebula system
+      const nebulaGroup = new THREE.Group();
+      const nebulaLayers = [];
 
-        // Create multiple nebula layers for depth and complexity
-        for (let i = 0; i < 4; i++) {
-            const geometry = new THREE.PlaneGeometry(100, 100, 1, 1);
-            const material = new THREE.ShaderMaterial({
-                vertexShader: nebulaVertexShader,
-                fragmentShader: nebulaFragmentShader,
-                uniforms: {
-                    uTime: { value: 0 },
-                    uIntensity: { value: 0.8 - i * 0.15 },
-                    uSpeed: { value: 1.0 + i * 0.3 },
-                    uColorShift: { value: i * 0.25 }
-                },
-                transparent: true,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false,
-                side: THREE.DoubleSide
-            });
-
-            const nebula = new THREE.Mesh(geometry, material);
-            nebula.position.z = -10 - i * 12;
-            nebula.rotation.z = i * Math.PI / 4;
-            nebula.rotation.x = Math.PI / 6;
-            
-            nebulaLayers.push(nebula);
-            nebulaGroup.add(nebula);
-        }
-
-        scene.add(nebulaGroup);
-
-        // Enhanced Galaxy Star System
-        const galaxyGroup = new THREE.Group();
-        scene.add(galaxyGroup);
-
-        const galaxyParams = {
-            starCount: 12000,
-            galaxyRadius: 35,
-            spiralArms: 4,
-            spiralTightness: 0.3,
-            galaxyHeight: 4,
-            coreRadius: 4,
-            rotationSpeed: 0.0008
-        };
-
-        // Create star systems
-        const starGeometry = new THREE.BufferGeometry();
-        const starPositions = new Float32Array(galaxyParams.starCount * 3);
-        const starColors = new Float32Array(galaxyParams.starCount * 3);
-        const starSizes = new Float32Array(galaxyParams.starCount);
-
-        // Generate spiral galaxy structure
-        for (let i = 0; i < galaxyParams.starCount; i++) {
-            const i3 = i * 3;
-            
-            const radius = Math.pow(Math.random(), 0.6) * galaxyParams.galaxyRadius;
-            const baseAngle = Math.random() * Math.PI * 2;
-            const spiralAngle = radius * galaxyParams.spiralTightness;
-            const armOffset = Math.floor(Math.random() * galaxyParams.spiralArms) * (Math.PI * 2 / galaxyParams.spiralArms);
-            const angle = baseAngle + spiralAngle + armOffset;
-            const angleNoise = (Math.random() - 0.5) * 0.4;
-            const finalAngle = angle + angleNoise;
-            
-            const x = Math.cos(finalAngle) * radius;
-            const z = Math.sin(finalAngle) * radius;
-            const y = (Math.random() - 0.5) * galaxyParams.galaxyHeight * (1 - radius / galaxyParams.galaxyRadius);
-            
-            starPositions[i3] = x;
-            starPositions[i3 + 1] = y;
-            starPositions[i3 + 2] = z;
-            
-            // Enhanced star colors
-            const coreDistance = radius / galaxyParams.galaxyRadius;
-            const temperature = Math.random();
-            
-            let color;
-            if (radius < galaxyParams.coreRadius) {
-                // Core stars - bright yellow/white
-                color = new THREE.Color().setHSL(0.1 + Math.random() * 0.1, 0.6, 0.9 + Math.random() * 0.1);
-            } else if (temperature < 0.2) {
-                // Hot blue giants
-                color = new THREE.Color().setHSL(0.6 + Math.random() * 0.1, 0.9, 0.8 + Math.random() * 0.2);
-            } else if (temperature < 0.5) {
-                // White/blue main sequence
-                color = new THREE.Color().setHSL(0.55 + Math.random() * 0.15, 0.7, 0.8 + Math.random() * 0.2);
-            } else if (temperature < 0.8) {
-                // Yellow/white stars
-                color = new THREE.Color().setHSL(0.15 + Math.random() * 0.1, 0.6, 0.8 + Math.random() * 0.2);
-            } else {
-                // Red dwarf stars
-                color = new THREE.Color().setHSL(0.0 + Math.random() * 0.05, 0.8, 0.6 + Math.random() * 0.2);
-            }
-            
-            starColors[i3] = color.r;
-            starColors[i3 + 1] = color.g;
-            starColors[i3 + 2] = color.b;
-            
-            // Variable star sizes
-            const baseSize = 0.08;
-            const sizeVariation = Math.random() * 0.12;
-            const distanceSize = (1 - coreDistance * 0.6) * 0.08;
-            starSizes[i] = baseSize + sizeVariation + distanceSize;
-        }
-
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-        starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
-        starGeometry.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
-
-        const starMaterial = new THREE.PointsMaterial({
-            size: 0.1,
-            sizeAttenuation: true,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.9,
-            blending: THREE.AdditiveBlending
+      // Create multiple nebula layers for depth and complexity
+      for (let i = 0; i < 4; i++) {
+        const geometry = new THREE.PlaneGeometry(100, 100, 1, 1);
+        const material = new THREE.ShaderMaterial({
+          vertexShader: nebulaVertexShader,
+          fragmentShader: nebulaFragmentShader,
+          uniforms: {
+            uTime: { value: 0 },
+            uIntensity: { value: 0.8 - i * 0.15 },
+            uSpeed: { value: 1.0 + i * 0.3 },
+            uColorShift: { value: i * 0.25 },
+          },
+          transparent: true,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+          side: THREE.DoubleSide,
         });
 
-        const starSystem = new THREE.Points(starGeometry, starMaterial);
-        galaxyGroup.add(starSystem);
+        const nebula = new THREE.Mesh(geometry, material);
+        nebula.position.z = -10 - i * 12;
+        nebula.rotation.z = (i * Math.PI) / 4;
+        nebula.rotation.x = Math.PI / 6;
 
-        // Enhanced cosmic dust
-        const dustCount = 4000;
-        const dustGeometry = new THREE.BufferGeometry();
-        const dustPositions = new Float32Array(dustCount * 3);
-        const dustColors = new Float32Array(dustCount * 3);
+        nebulaLayers.push(nebula);
+        nebulaGroup.add(nebula);
+      }
 
-        for (let i = 0; i < dustCount; i++) {
-            const i3 = i * 3;
-            
-            const radius = Math.pow(Math.random(), 0.4) * galaxyParams.galaxyRadius * 1.3;
-            const angle = Math.random() * Math.PI * 2;
-            const spiralAngle = radius * galaxyParams.spiralTightness * 0.6;
-            
-            dustPositions[i3] = Math.cos(angle + spiralAngle) * radius;
-            dustPositions[i3 + 1] = (Math.random() - 0.5) * galaxyParams.galaxyHeight * 1.5;
-            dustPositions[i3 + 2] = Math.sin(angle + spiralAngle) * radius;
-            
-            // Dust colors that complement nebula
-            const dustHue = 0.6 + Math.random() * 0.3; // Blue to purple range
-            const color = new THREE.Color().setHSL(dustHue, 0.7, 0.3 + Math.random() * 0.4);
-            dustColors[i3] = color.r;
-            dustColors[i3 + 1] = color.g;
-            dustColors[i3 + 2] = color.b;
+      scene.add(nebulaGroup);
+
+      // Enhanced Galaxy Star System
+      const galaxyGroup = new THREE.Group();
+      scene.add(galaxyGroup);
+
+      const galaxyParams = {
+        starCount: 12000,
+        galaxyRadius: 35,
+        spiralArms: 4,
+        spiralTightness: 0.3,
+        galaxyHeight: 4,
+        coreRadius: 4,
+        rotationSpeed: 0.0008,
+      };
+
+      // Create star systems
+      const starGeometry = new THREE.BufferGeometry();
+      const starPositions = new Float32Array(galaxyParams.starCount * 3);
+      const starColors = new Float32Array(galaxyParams.starCount * 3);
+      const starSizes = new Float32Array(galaxyParams.starCount);
+
+      // Generate spiral galaxy structure
+      for (let i = 0; i < galaxyParams.starCount; i++) {
+        const i3 = i * 3;
+
+        const radius = Math.pow(Math.random(), 0.6) * galaxyParams.galaxyRadius;
+        const baseAngle = Math.random() * Math.PI * 2;
+        const spiralAngle = radius * galaxyParams.spiralTightness;
+        const armOffset =
+          Math.floor(Math.random() * galaxyParams.spiralArms) *
+          ((Math.PI * 2) / galaxyParams.spiralArms);
+        const angle = baseAngle + spiralAngle + armOffset;
+        const angleNoise = (Math.random() - 0.5) * 0.4;
+        const finalAngle = angle + angleNoise;
+
+        const x = Math.cos(finalAngle) * radius;
+        const z = Math.sin(finalAngle) * radius;
+        const y =
+          (Math.random() - 0.5) *
+          galaxyParams.galaxyHeight *
+          (1 - radius / galaxyParams.galaxyRadius);
+
+        starPositions[i3] = x;
+        starPositions[i3 + 1] = y;
+        starPositions[i3 + 2] = z;
+
+        // Enhanced star colors
+        const coreDistance = radius / galaxyParams.galaxyRadius;
+        const temperature = Math.random();
+
+        let color;
+        if (radius < galaxyParams.coreRadius) {
+          // Core stars - bright yellow/white
+          color = new THREE.Color().setHSL(
+            0.1 + Math.random() * 0.1,
+            0.6,
+            0.9 + Math.random() * 0.1
+          );
+        } else if (temperature < 0.2) {
+          // Hot blue giants
+          color = new THREE.Color().setHSL(
+            0.6 + Math.random() * 0.1,
+            0.9,
+            0.8 + Math.random() * 0.2
+          );
+        } else if (temperature < 0.5) {
+          // White/blue main sequence
+          color = new THREE.Color().setHSL(
+            0.55 + Math.random() * 0.15,
+            0.7,
+            0.8 + Math.random() * 0.2
+          );
+        } else if (temperature < 0.8) {
+          // Yellow/white stars
+          color = new THREE.Color().setHSL(
+            0.15 + Math.random() * 0.1,
+            0.6,
+            0.8 + Math.random() * 0.2
+          );
+        } else {
+          // Red dwarf stars
+          color = new THREE.Color().setHSL(
+            0.0 + Math.random() * 0.05,
+            0.8,
+            0.6 + Math.random() * 0.2
+          );
         }
 
-        dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-        dustGeometry.setAttribute('color', new THREE.BufferAttribute(dustColors, 3));
+        starColors[i3] = color.r;
+        starColors[i3 + 1] = color.g;
+        starColors[i3 + 2] = color.b;
 
-        const dustMaterial = new THREE.PointsMaterial({
-            size: 0.03,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.6,
-            blending: THREE.AdditiveBlending
+        // Variable star sizes
+        const baseSize = 0.08;
+        const sizeVariation = Math.random() * 0.12;
+        const distanceSize = (1 - coreDistance * 0.6) * 0.08;
+        starSizes[i] = baseSize + sizeVariation + distanceSize;
+      }
+
+      starGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(starPositions, 3)
+      );
+      starGeometry.setAttribute(
+        "color",
+        new THREE.BufferAttribute(starColors, 3)
+      );
+      starGeometry.setAttribute(
+        "size",
+        new THREE.BufferAttribute(starSizes, 1)
+      );
+
+      const starMaterial = new THREE.PointsMaterial({
+        size: 0.1,
+        sizeAttenuation: true,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending,
+      });
+
+      const starSystem = new THREE.Points(starGeometry, starMaterial);
+      galaxyGroup.add(starSystem);
+
+      // Enhanced cosmic dust
+      const dustCount = 4000;
+      const dustGeometry = new THREE.BufferGeometry();
+      const dustPositions = new Float32Array(dustCount * 3);
+      const dustColors = new Float32Array(dustCount * 3);
+
+      for (let i = 0; i < dustCount; i++) {
+        const i3 = i * 3;
+
+        const radius =
+          Math.pow(Math.random(), 0.4) * galaxyParams.galaxyRadius * 1.3;
+        const angle = Math.random() * Math.PI * 2;
+        const spiralAngle = radius * galaxyParams.spiralTightness * 0.6;
+
+        dustPositions[i3] = Math.cos(angle + spiralAngle) * radius;
+        dustPositions[i3 + 1] =
+          (Math.random() - 0.5) * galaxyParams.galaxyHeight * 1.5;
+        dustPositions[i3 + 2] = Math.sin(angle + spiralAngle) * radius;
+
+        // Dust colors that complement nebula
+        const dustHue = 0.6 + Math.random() * 0.3; // Blue to purple range
+        const color = new THREE.Color().setHSL(
+          dustHue,
+          0.7,
+          0.3 + Math.random() * 0.4
+        );
+        dustColors[i3] = color.r;
+        dustColors[i3 + 1] = color.g;
+        dustColors[i3 + 2] = color.b;
+      }
+
+      dustGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(dustPositions, 3)
+      );
+      dustGeometry.setAttribute(
+        "color",
+        new THREE.BufferAttribute(dustColors, 3)
+      );
+
+      const dustMaterial = new THREE.PointsMaterial({
+        size: 0.03,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending,
+      });
+
+      const dustSystem = new THREE.Points(dustGeometry, dustMaterial);
+      galaxyGroup.add(dustSystem);
+
+      // Camera positioning
+      camera.position.set(0, 20, 40);
+      camera.lookAt(0, 0, 0);
+
+      // Enhanced mouse interaction
+      const mouse = { x: 0, y: 0 };
+      const targetRotation = { x: 0, y: 0 };
+      const currentRotation = { x: 0, y: 0 };
+
+      document.addEventListener("mousemove", (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        targetRotation.x = mouse.y * 0.15;
+        targetRotation.y = mouse.x * 0.25;
+
+        // Update custom cursor
+        const cursor = document.querySelector(".custom-cursor");
+        if (cursor) {
+          cursor.style.left = event.clientX + "px";
+          cursor.style.top = event.clientY + "px";
+        }
+      });
+
+      // Scroll-based effects
+      let scrollY = 0;
+      window.addEventListener("scroll", () => {
+        scrollY = window.pageYOffset;
+      });
+
+      // Animation variables
+      let time = 0;
+      const twinkleStars = [];
+
+      // Create some special twinkling stars
+      for (let i = 0; i < 50; i++) {
+        twinkleStars.push({
+          index: Math.floor(Math.random() * galaxyParams.starCount),
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.02 + Math.random() * 0.03,
+        });
+      }
+
+      // Main animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+
+        time += 0.01;
+
+        // Update nebula uniforms
+        nebulaLayers.forEach((nebula, index) => {
+          nebula.material.uniforms.uTime.value = time;
+          // Add subtle rotation to each layer
+          nebula.rotation.z += 0.0001 * (index + 1);
+          nebula.rotation.y += 0.0002 * (index + 1);
         });
 
-        const dustSystem = new THREE.Points(dustGeometry, dustMaterial);
-        galaxyGroup.add(dustSystem);
+        // Smooth camera movement
+        currentRotation.x += (targetRotation.x - currentRotation.x) * 0.05;
+        currentRotation.y += (targetRotation.y - currentRotation.y) * 0.05;
 
-        // Camera positioning
-        camera.position.set(0, 20, 40);
+        camera.position.x = Math.sin(currentRotation.y) * 40;
+        camera.position.z = Math.cos(currentRotation.y) * 40;
+        camera.position.y = 20 + currentRotation.x * 15;
         camera.lookAt(0, 0, 0);
 
-        // Enhanced mouse interaction
-        const mouse = { x: 0, y: 0 };
-        const targetRotation = { x: 0, y: 0 };
-        const currentRotation = { x: 0, y: 0 };
+        // Galaxy rotation
+        galaxyGroup.rotation.y += galaxyParams.rotationSpeed;
 
-        document.addEventListener('mousemove', (event) => {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-            
-            targetRotation.x = mouse.y * 0.15;
-            targetRotation.y = mouse.x * 0.25;
+        // Add subtle galaxy breathing
+        const breathe = Math.sin(time * 0.3) * 0.02 + 1;
+        galaxyGroup.scale.setScalar(breathe);
 
-            // Update custom cursor
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor) {
-                cursor.style.left = event.clientX + 'px';
-                cursor.style.top = event.clientY + 'px';
-            }
-        });
+        // Nebula group rotation (slower than galaxy)
+        nebulaGroup.rotation.y += galaxyParams.rotationSpeed * 0.3;
+        nebulaGroup.rotation.x = Math.sin(time * 0.1) * 0.05;
 
         // Scroll-based effects
-        let scrollY = 0;
-        window.addEventListener('scroll', () => {
-            scrollY = window.pageYOffset;
+        const scrollInfluence = scrollY * 0.001;
+        camera.position.y = 20 + scrollInfluence * 8 + currentRotation.x * 15;
+        camera.position.z =
+          40 - scrollInfluence * 15 + Math.cos(currentRotation.y) * 40;
+
+        // Animate twinkling stars
+        const colors = starGeometry.attributes.color.array;
+        let twinkleChanged = false;
+        twinkleStars.forEach((star) => {
+          const intensity =
+            (Math.sin(time * star.speed + star.phase) + 1) * 0.5;
+          const baseIntensity = 0.6 + intensity * 0.4;
+
+          const i3 = star.index * 3;
+          colors[i3] = starColors[i3] * baseIntensity;
+          colors[i3 + 1] = starColors[i3 + 1] * baseIntensity;
+          colors[i3 + 2] = starColors[i3 + 2] * baseIntensity;
+          twinkleChanged = true;
         });
 
-        // Animation variables
-        let time = 0;
-        const twinkleStars = [];
-
-        // Create some special twinkling stars
-        for (let i = 0; i < 50; i++) {
-            twinkleStars.push({
-                index: Math.floor(Math.random() * galaxyParams.starCount),
-                phase: Math.random() * Math.PI * 2,
-                speed: 0.02 + Math.random() * 0.03
-            });
+        // Only update if twinkling stars changed
+        if (twinkleChanged) {
+          starGeometry.attributes.color.needsUpdate = true;
         }
 
-        // Main animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            time += 0.01;
+        renderer.render(scene, camera);
+      }
 
-            // Update nebula uniforms
-            nebulaLayers.forEach((nebula, index) => {
-                nebula.material.uniforms.uTime.value = time;
-                // Add subtle rotation to each layer
-                nebula.rotation.z += 0.0001 * (index + 1);
-                nebula.rotation.y += 0.0002 * (index + 1);
+      // Handle window resize
+      window.addEventListener("resize", () => {
+        setRendererAndCameraSize();
+      });
+
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
             });
+          }
+        });
+      });
 
-            // Smooth camera movement
-            currentRotation.x += (targetRotation.x - currentRotation.x) * 0.05;
-            currentRotation.y += (targetRotation.y - currentRotation.y) * 0.05;
-            
-            camera.position.x = Math.sin(currentRotation.y) * 40;
-            camera.position.z = Math.cos(currentRotation.y) * 40;
-            camera.position.y = 20 + currentRotation.x * 15;
-            camera.lookAt(0, 0, 0);
+      // Cursor effects
+      document.addEventListener("mouseenter", () => {
+        const cursor = document.querySelector(".custom-cursor");
+        if (cursor) cursor.style.opacity = "1";
+      });
 
-            // Galaxy rotation
-            galaxyGroup.rotation.y += galaxyParams.rotationSpeed;
-            
-            // Add subtle galaxy breathing
-            const breathe = Math.sin(time * 0.3) * 0.02 + 1;
-            galaxyGroup.scale.setScalar(breathe);
+      document.addEventListener("mouseleave", () => {
+        const cursor = document.querySelector(".custom-cursor");
+        if (cursor) cursor.style.opacity = "0";
+      });
 
-            // Nebula group rotation (slower than galaxy)
-            nebulaGroup.rotation.y += galaxyParams.rotationSpeed * 0.3;
-            nebulaGroup.rotation.x = Math.sin(time * 0.1) * 0.05;
+      // Start animation
+      animate();
 
-            // Scroll-based effects
-            const scrollInfluence = scrollY * 0.001;
-            camera.position.y = 20 + scrollInfluence * 8 + currentRotation.x * 15;
-            camera.position.z = 40 - scrollInfluence * 15 + Math.cos(currentRotation.y) * 40;
+      // Enhanced hover effects
+      const interactiveElements = document.querySelectorAll(
+        ".cta-button, .contact-link, .project-card"
+      );
+      interactiveElements.forEach((element) => {
+        element.addEventListener("mouseenter", () => {
+          const cursor = document.querySelector(".custom-cursor");
+          if (cursor) cursor.style.transform = "scale(2)";
 
-            // Animate twinkling stars
-            const colors = starGeometry.attributes.color.array;
-            twinkleStars.forEach(star => {
-                const intensity = (Math.sin(time * star.speed + star.phase) + 1) * 0.5;
-                const baseIntensity = 0.6 + intensity * 0.4;
-                
-                const i3 = star.index * 3;
-                colors[i3] = starColors[i3] * baseIntensity;
-                colors[i3 + 1] = starColors[i3 + 1] * baseIntensity;
-                colors[i3 + 2] = starColors[i3 + 2] * baseIntensity;
-            });
-            
-            if (Math.random() < 0.1) {
-                starGeometry.attributes.color.needsUpdate = true;
-            }
-
-            renderer.render(scene, camera);
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+          // Subtle nebula intensity boost on hover
+          nebulaLayers.forEach((nebula) => {
+            nebula.material.uniforms.uIntensity.value *= 1.2;
+          });
         });
 
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        element.addEventListener("mouseleave", () => {
+          const cursor = document.querySelector(".custom-cursor");
+          if (cursor) cursor.style.transform = "scale(1)";
 
-        // Cursor effects
-        document.addEventListener('mouseenter', () => {
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor) cursor.style.opacity = '1';
+          // Reset nebula intensity
+          nebulaLayers.forEach((nebula, i) => {
+            nebula.material.uniforms.uIntensity.value = 0.8 - i * 0.15;
+          });
         });
-
-        document.addEventListener('mouseleave', () => {
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor) cursor.style.opacity = '0';
-        });
-
-        // Start animation
-        animate();
-
-        // Enhanced hover effects
-        const interactiveElements = document.querySelectorAll('.cta-button, .contact-link, .project-card');
-        interactiveElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                const cursor = document.querySelector('.custom-cursor');
-                if (cursor) cursor.style.transform = 'scale(2)';
-                
-                // Subtle nebula intensity boost on hover
-                nebulaLayers.forEach(nebula => {
-                    nebula.material.uniforms.uIntensity.value *= 1.2;
-                });
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                const cursor = document.querySelector('.custom-cursor');
-                if (cursor) cursor.style.transform = 'scale(1)';
-                
-                // Reset nebula intensity
-                nebulaLayers.forEach((nebula, i) => {
-                    nebula.material.uniforms.uIntensity.value = 0.8 - i * 0.15;
-                });
-            });
-        });
+      });
     </script>
-</body>
+  </body>
 </html>
