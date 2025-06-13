@@ -1,4 +1,11 @@
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
+
 // Enhanced Three.js Scene Setup with Nebula Shader Effects
+      const isMobile = window.innerWidth < 768;
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         75,
@@ -6,10 +13,12 @@
         0.1,
         1000
       );
+      let composer, bloomPass, filmPass, starSystem, galaxyGroup, starOriginalSizes, starTwinkleSpeeds, starTwinklePhases, shootingStarSystem, shootingStarData = []; // Removed shootingStarLifetime and shootingStarSpeed as they are part of shootingStarData
       const renderer = new THREE.WebGLRenderer({
-        antialias: true,
+        antialias: !isMobile, // Disable antialias on mobile
         alpha: true,
       });
+      const clock = new THREE.Clock();
 
       // Responsive renderer and camera for mobile
       function setRendererAndCameraSize() {
@@ -21,12 +30,47 @@
         }
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
+
+        if (composer) {
+          composer.setSize(window.innerWidth, window.innerHeight);
+        }
+        if (bloomPass) {
+          bloomPass.resolution.set(window.innerWidth, window.innerHeight);
+        }
       }
       setRendererAndCameraSize();
       renderer.setClearColor(0x000814, 1); // Deep space background
       document
         .getElementById("canvas-container")
         .appendChild(renderer.domElement);
+
+      // Post-processing setup
+      composer = new EffectComposer(renderer);
+      const renderPass = new RenderPass(scene, camera);
+      composer.addPass(renderPass);
+
+// Optimized bloom parameters based on device
+const bloomParams = {
+  strength: isMobile ? 1.2 : 1.5,  // Slightly less intense on mobile to save performance
+  radius: isMobile ? 0.3 : 0.4,    // Smaller radius on mobile for better performance
+  threshold: 0.7,                  // Lower threshold makes more elements bloom
+};
+bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        bloomParams.strength,
+        bloomParams.radius,
+        bloomParams.threshold
+      );
+      composer.addPass(bloomPass);
+
+      // Film Grain Pass
+      filmPass = new FilmPass(
+        0.35,  // noise intensity
+        0.025, // scanline intensity
+        648,   // scanline count
+        false  // grayscale
+      );
+      composer.addPass(filmPass);
 
       // Nebula Shader Material
       const nebulaVertexShader = `
@@ -190,7 +234,8 @@
       const nebulaLayers = [];
 
       // Create multiple nebula layers for depth and complexity
-      for (let i = 0; i < 4; i++) {
+      const nebulaLayerCount = isMobile ? 2 : 4; // Fewer layers on mobile
+      for (let i = 0; i < nebulaLayerCount; i++) {
         const geometry = new THREE.PlaneGeometry(100, 100, 1, 1);
         const material = new THREE.ShaderMaterial({
           vertexShader: nebulaVertexShader,
@@ -219,11 +264,11 @@
       scene.add(nebulaGroup);
 
       // Enhanced Galaxy Star System
-      const galaxyGroup = new THREE.Group();
+      galaxyGroup = new THREE.Group();
       scene.add(galaxyGroup);
 
       const galaxyParams = {
-        starCount: 12000,
+        starCount: isMobile ? 5000 : 12000, // Fewer stars on mobile
         galaxyRadius: 35,
         spiralArms: 4,
         spiralTightness: 0.3,
@@ -237,6 +282,11 @@
       const starPositions = new Float32Array(galaxyParams.starCount * 3);
       const starColors = new Float32Array(galaxyParams.starCount * 3);
       const starSizes = new Float32Array(galaxyParams.starCount);
+      
+      // Arrays for star twinkling animation
+      starOriginalSizes = new Float32Array(galaxyParams.starCount);
+      starTwinkleSpeeds = new Float32Array(galaxyParams.starCount);
+      starTwinklePhases = new Float32Array(galaxyParams.starCount);
 
       // Generate spiral galaxy structure
       for (let i = 0; i < galaxyParams.starCount; i++) {
@@ -313,7 +363,15 @@
         const baseSize = 0.08;
         const sizeVariation = Math.random() * 0.12;
         const distanceSize = (1 - coreDistance * 0.6) * 0.08;
-        starSizes[i] = baseSize + sizeVariation + distanceSize;
+        const size = baseSize + sizeVariation + distanceSize;
+        
+        // Store original size for twinkling animation
+        starSizes[i] = size;
+        starOriginalSizes[i] = size;
+        
+        // Each star gets a random twinkling speed and phase
+        starTwinkleSpeeds[i] = 0.3 + Math.random() * 2; // Random speed between 0.3 and 2.3
+        starTwinklePhases[i] = Math.random() * Math.PI * 2; // Random starting phase
       }
 
       starGeometry.setAttribute(
@@ -338,8 +396,105 @@
         blending: THREE.AdditiveBlending,
       });
 
-      const starSystem = new THREE.Points(starGeometry, starMaterial);
+      starSystem = new THREE.Points(starGeometry, starMaterial);
       galaxyGroup.add(starSystem);
+
+      // Shooting Star System with Tails
+      const numShootingStars = 7; // Number of conceptual shooting stars
+      const pointsPerShootingStar = 15; // Head + 14 tail segments for a longer tail for a longer tail
+      const totalShootingStarPoints = numShootingStars * pointsPerShootingStar;
+
+      shootingStarData = []; // Array to hold state for each conceptual shooting star
+
+      const shootingStarGeometry = new THREE.BufferGeometry();
+      const shootingStarPositions = new Float32Array(totalShootingStarPoints * 3);
+      const shootingStarColors = new Float32Array(totalShootingStarPoints * 3);
+      const shootingStarOpacities = new Float32Array(totalShootingStarPoints); // For fading tails
+      const shootingStarSizes = new Float32Array(totalShootingStarPoints);     // For shrinking tails
+
+      for (let i = 0; i < numShootingStars; i++) {
+        shootingStarData.push({
+          headPosition: new THREE.Vector3(
+            (Math.random() - 0.5) * 300, // Initial far-off-screen X
+            (Math.random() - 0.5) * 300, // Initial far-off-screen Y
+            (Math.random() - 0.5) * 300  // Initial far-off-screen Z
+          ),
+          velocity: new THREE.Vector3(),
+          lifetime: 0,
+          currentLifetime: 0,
+          speed: Math.random() * 50 + 40, // Speed: 40 to 90 units/sec
+          isActive: false,
+          tailPositions: [] // Stores previous head positions for smooth tail
+        });
+
+        for (let j = 0; j < pointsPerShootingStar; j++) {
+          const pointIndex = i * pointsPerShootingStar + j;
+          // All points of a star start at the same initial head position (off-screen)
+          shootingStarPositions[pointIndex * 3] = shootingStarData[i].headPosition.x;
+          shootingStarPositions[pointIndex * 3 + 1] = shootingStarData[i].headPosition.y;
+          shootingStarPositions[pointIndex * 3 + 2] = shootingStarData[i].headPosition.z;
+
+          if (j === 0) { // Head
+            shootingStarColors[pointIndex * 3] = 1.0; // Bright white
+            shootingStarColors[pointIndex * 3 + 1] = 1.0;
+            shootingStarColors[pointIndex * 3 + 2] = 1.0;
+            shootingStarOpacities[pointIndex] = 0.0; // Start inactive, opacity set when active
+            shootingStarSizes[pointIndex] = 0.35; // Head size
+          } else { // Tail segments
+            const tailFactor = Math.max(0, (pointsPerShootingStar - j -1)) / (pointsPerShootingStar-1) ;
+            shootingStarColors[pointIndex * 3] = 0.7 + 0.3 * tailFactor; // Fading to a slightly bluish white
+            shootingStarColors[pointIndex * 3 + 1] = 0.7 + 0.3 * tailFactor;
+            shootingStarColors[pointIndex * 3 + 2] = 0.8 + 0.2 * tailFactor;
+            shootingStarOpacities[pointIndex] = 0.0; // Tail segments also start inactive
+            shootingStarSizes[pointIndex] = 0.35 * tailFactor * 0.7; // Shrinking size, ensure tail is smaller
+          }
+        }
+      }
+
+      shootingStarGeometry.setAttribute('position', new THREE.BufferAttribute(shootingStarPositions, 3));
+      shootingStarGeometry.setAttribute('color', new THREE.BufferAttribute(shootingStarColors, 3));
+      shootingStarGeometry.setAttribute('alpha', new THREE.BufferAttribute(shootingStarOpacities, 1));
+      shootingStarGeometry.setAttribute('size', new THREE.BufferAttribute(shootingStarSizes, 1));
+
+      const shootingStarVertexShader = `
+        attribute float size;
+        attribute float alpha;
+        varying float vAlpha;
+        varying vec3 vColor;
+        void main() {
+            vAlpha = alpha;
+            vColor = color;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            // Make size slightly larger and more responsive to distance
+            gl_PointSize = size * (400.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+      `;
+
+      const shootingStarFragmentShader = `
+        varying float vAlpha;
+        varying vec3 vColor;
+        void main() {
+            if (vAlpha < 0.01) discard; // Don't render if almost fully transparent
+            float d = distance(gl_PointCoord, vec2(0.5, 0.5));
+            // Softer edge for the points
+            float strength = 1.0 - smoothstep(0.4, 0.5, d);
+            if (strength < 0.01) discard;
+            gl_FragColor = vec4(vColor, vAlpha * strength);
+        }
+      `;
+
+      const shootingStarMaterial = new THREE.ShaderMaterial({
+        vertexShader: shootingStarVertexShader,
+        fragmentShader: shootingStarFragmentShader,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        transparent: true,
+        vertexColors: true
+      });
+
+      shootingStarSystem = new THREE.Points(shootingStarGeometry, shootingStarMaterial);
+      scene.add(shootingStarSystem);
 
       // Enhanced cosmic dust
       const dustCount = 4000;
@@ -405,8 +560,15 @@
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        targetRotation.x = mouse.y * 0.25; // Increased vertical rotation
-        targetRotation.y = mouse.x * 0.35; // Increased horizontal rotation
+        targetRotation.x = mouse.y * 0.25; // Camera vertical rotation
+        targetRotation.y = mouse.x * 0.35; // Camera horizontal rotation
+
+        // Add direct subtle rotation to the galaxy itself
+        // This is in addition to the automatic rotation and camera-driven rotation
+        if (galaxyGroup) {
+          galaxyGroup.rotation.x += mouse.y * 0.0005; // Subtle vertical tilt
+          galaxyGroup.rotation.y += mouse.x * 0.0005; // Subtle horizontal turn
+        }
 
         // Update custom cursor
         const cursor = document.querySelector(".custom-cursor");
@@ -434,7 +596,7 @@
       function animate() {
         requestAnimationFrame(animate);
 
-        const elapsedTime = new THREE.Clock().getElapsedTime();
+        const elapsedTime = clock.getElapsedTime();
 
         // Update nebula uniforms
         nebulaLayers.forEach((layer) => {
@@ -453,6 +615,31 @@
 
         // Automatic galaxy rotation
         galaxyGroup.rotation.y += galaxyParams.rotationSpeed;
+        
+        // Star twinkling animation
+        if (starSystem && starSystem.geometry && starOriginalSizes) {
+          const geometry = starSystem.geometry;
+          const sizesAttribute = geometry.getAttribute('size');
+          
+          if (sizesAttribute) {
+            
+            
+            // Update each star's size based on its unique twinkling pattern
+            for (let i = 0; i < galaxyParams.starCount; i++) {
+              const phase = starTwinklePhases[i];
+              const speed = starTwinkleSpeeds[i];
+              const originalSize = starOriginalSizes[i];
+              
+              // Calculate the twinkle factor (oscillating between 0.7 and 1.3)
+              const twinkleFactor = 1.0 + 0.5 * Math.sin((elapsedTime * speed) + phase); // Range 0.5 to 1.5
+              
+              // Apply the twinkle factor to the original size
+              sizesAttribute.array[i] = originalSize * twinkleFactor;
+            }
+            
+            sizesAttribute.needsUpdate = true;
+          }
+        }
 
         // Smooth camera zoom
         camera.position.z += (targetCameraZ - camera.position.z) * 0.05;
@@ -465,7 +652,111 @@
           el.style.transform = `translateY(${Math.sin(elapsedTime * speed + phase) * 20}px) rotate(${elapsedTime * 15 * (index + 1)}deg)`;
         });
 
-        renderer.render(scene, camera);
+        // renderer.render(scene, camera); // Replaced by composer.render()
+        // Shooting Star Animation with Tails (Corrected and Completed)
+        if (shootingStarSystem && typeof shootingStarData !== 'undefined' && shootingStarData.length > 0) {
+            const now = clock.getElapsedTime();
+            let deltaTime = now - (shootingStarSystem.lastUpdateTime || now);
+            
+            // Guard against problematic deltaTime values
+            if (deltaTime <= 0 || deltaTime > 0.2) { 
+                deltaTime = 1 / 60; // Default to 60 FPS if delta is too large or invalid
+            }
+            shootingStarSystem.lastUpdateTime = now;
+
+            const positionsAttribute = shootingStarSystem.geometry.attributes.position;
+            const opacitiesAttribute = shootingStarSystem.geometry.attributes.alpha;
+            const sizesAttribute = shootingStarSystem.geometry.attributes.size;
+            const numConceptualStars = shootingStarData.length;
+            const pointsPerStar = shootingStarSystem.geometry.attributes.position.count / numConceptualStars;
+
+            let activeStarCount = 0;
+            shootingStarData.forEach(s => { if(s.isActive) activeStarCount++; });
+
+            for (let i = 0; i < numConceptualStars; i++) {
+                const star = shootingStarData[i];
+
+                if (star.isActive) {
+                    star.headPosition.addScaledVector(star.velocity, deltaTime);
+                    star.currentLifetime -= deltaTime;
+
+                    // Add current head position to the front of tail history
+                    star.tailPositions.unshift(new THREE.Vector3().copy(star.headPosition));
+                    // Keep tail history length limited to number of points per star (head + tail segments)
+                    if (star.tailPositions.length > pointsPerStar) {
+                        star.tailPositions.pop();
+                    }
+                    
+                    // Update all points (head + tail segments)
+                    for (let j = 0; j < pointsPerStar; j++) {
+                        const pointIndex = i * pointsPerStar + j;
+                        // Use historical position for tail, current for head or if history is short
+                        let currentPos = (j < star.tailPositions.length) ? star.tailPositions[j] : star.headPosition;
+                        
+                        positionsAttribute.setXYZ(pointIndex, currentPos.x, currentPos.y, currentPos.z);
+
+                        if (j === 0) { // Head
+                            opacitiesAttribute.array[pointIndex] = star.currentLifetime > 0 ? 1.0 : 0.0; // Head is visible if star is alive
+                            sizesAttribute.array[pointIndex] = 0.35; // Head size (as per initialization)
+                        } else { // Tail segments
+                            const tailProgress = Math.max(0, star.currentLifetime / star.lifetime); // How much of lifetime is left
+                            // SegmentFactor: 1 for segment closest to head, 0 for last segment
+                            const segmentFactor = Math.max(0, (pointsPerStar - 1 - j)) / (pointsPerStar - 1);
+                            // Use Math.pow to create a non-linear falloff, making the tail brighter for longer
+                            opacitiesAttribute.array[pointIndex] = Math.pow(segmentFactor, 0.5) * tailProgress; 
+                            sizesAttribute.array[pointIndex] = 0.35 * Math.pow(segmentFactor, 0.7) * tailProgress;
+                        }
+                    }
+
+                    const boundaryRadius = galaxyParams.galaxyRadius * 3; // Define a boundary for deactivation
+                    if (star.currentLifetime <= 0 || star.headPosition.length() > boundaryRadius) {
+                        star.isActive = false;
+                        // Make all points of this star invisible immediately upon deactivation
+                        for (let j = 0; j < pointsPerStar; j++) {
+                           opacitiesAttribute.array[i * pointsPerStar + j] = 0.0;
+                        }
+                    }
+                } else {
+                    // Chance to reactivate an inactive star, only if we're below the max count
+                    if (activeStarCount < 2 && Math.random() < 0.015 * deltaTime * 60) { // Slightly increased chance to compensate for the hard cap
+                        star.isActive = true;
+                        activeStarCount++; // Increment count immediately
+                        const edgeOffset = galaxyParams.galaxyRadius * 2.2; // Start slightly further out
+                        const side = Math.floor(Math.random() * 6); // Random side of a cube for starting position
+                        const randVal = () => (Math.random() - 0.5) * 2 * edgeOffset * 0.7; // Random coordinate value
+
+                        if (side === 0) star.headPosition.set(randVal(), edgeOffset, randVal());         // Top
+                        else if (side === 1) star.headPosition.set(randVal(), -edgeOffset, randVal());    // Bottom
+                        else if (side === 2) star.headPosition.set(edgeOffset, randVal(), randVal());     // Right
+                        else if (side === 3) star.headPosition.set(-edgeOffset, randVal(), randVal());    // Left
+                        else if (side === 4) star.headPosition.set(randVal(), randVal(), edgeOffset);     // Front
+                        else star.headPosition.set(randVal(), randVal(), -edgeOffset);    // Back
+                        
+                        // Target a point within the central region of the galaxy
+                        const targetPoint = new THREE.Vector3(
+                            (Math.random() - 0.5) * galaxyParams.galaxyRadius * 0.4, // More central target
+                            (Math.random() - 0.5) * galaxyParams.galaxyRadius * 0.4,
+                            (Math.random() - 0.5) * galaxyParams.galaxyRadius * 0.4
+                        );
+                        star.velocity.subVectors(targetPoint, star.headPosition).normalize().multiplyScalar(star.speed);
+                        
+                        star.lifetime = Math.random() * 2.5 + 2.0; // Lifetime: 2.0 to 4.5 seconds
+                        star.currentLifetime = star.lifetime;
+                        star.tailPositions = []; // Clear tail history
+                        // Pre-fill tail history with current head position so tail doesn't jump on first frame
+                        for(let k=0; k < pointsPerStar; ++k) star.tailPositions.push(new THREE.Vector3().copy(star.headPosition));
+                        
+                        // Ensure head opacity is set correctly on activation
+                        opacitiesAttribute.array[i * pointsPerStar] = 1.0;
+                    }
+                }
+            }
+            positionsAttribute.needsUpdate = true;
+            opacitiesAttribute.needsUpdate = true;
+            sizesAttribute.needsUpdate = true;
+        }
+
+        if (composer) composer.render();
       }
 
       // Hide loader when everything is ready
