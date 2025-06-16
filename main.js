@@ -401,7 +401,8 @@ bloomPass = new UnrealBloomPass(
 
       // Shooting Star System with Tails
       const numShootingStars = 7; // Number of conceptual shooting stars
-      const pointsPerShootingStar = 15; // Head + 14 tail segments for a longer tail for a longer tail
+      // Head + 14 tail segments for a longer tail
+      const pointsPerShootingStar = 15;
       const totalShootingStarPoints = numShootingStars * pointsPerShootingStar;
 
       shootingStarData = []; // Array to hold state for each conceptual shooting star
